@@ -2,8 +2,14 @@
 A .ppm file generator in rust inspired from olive_c
 
 ## Current Functionality:
-  ### Fill Rect:
 
+  ### Draw Line:
+  <div align="center">
+
+  ![Line](images/line.png)
+  </div>
+
+  ### Fill Rect:
   <div align="center">
 
   ![Rect](images/rect.png)
@@ -12,5 +18,5 @@ A .ppm file generator in rust inspired from olive_c
   ### Fill Circle:
   <div align="center">
 
-  ![Rect](images/circle.png)
+  ![Circle](images/circle.png)
   </div>

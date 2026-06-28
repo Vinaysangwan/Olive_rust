@@ -4,3 +4,4 @@ target/
 
 # Files
 Cargo.lock
+*.ppm

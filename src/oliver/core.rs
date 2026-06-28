@@ -7,7 +7,57 @@ pub fn oliver_fill(pixels: &mut [u32], color: u32)
   pixels.fill(color);
 }
 
-pub fn oliver_fill_rect(pixels: &mut [u32], pixel_width: usize, pixel_height: usize, 
+pub fn oliver_draw_line(pixels: &mut [u32], pixel_width: usize, pixel_height: usize,
+                        x1: i32, y1: i32, x2: i32, y2: i32, color: u32)
+{
+  /*
+    Line equation:
+    P1(x1, y1)   P2(x2, y2)
+    y = mx + c
+
+    y1 = mx1 + c
+    y2 = mx2 + c
+    c = y1 - mx1
+    y2 = mx2 + y1 - mx1
+    m = (y1 - y2) / (x1 - x2)
+  */
+
+  let dx = x2 - x1;
+  let dy = y2 - y1;
+
+  if dx != 0
+  {
+    let c= y1 - dy*x1/dx;
+
+    for x in x1..=x2
+    {
+      if x >=0 && x < pixel_width as i32
+      {
+        let y = dy*x/dx + c;
+        if 0 <= y && y < pixel_height as i32
+        {
+          pixels[(y * pixel_width as i32 + x) as usize] = color;
+        }
+      }
+    }
+  }
+  else
+  {
+    // vertical line
+    if x1 >= 0 && x1 < pixel_width as i32
+    {
+      for y in y1..=y2
+      {
+        if y >=0 && y < pixel_height as i32
+        {
+          pixels[(y * pixel_width as i32 + x1) as usize] = color;
+        }
+      }
+    }
+  }
+}
+
+pub fn oliver_draw_fill_rect(pixels: &mut [u32], pixel_width: usize, pixel_height: usize, 
                         x: i32, y: i32, w: i32, h: i32, color: u32)
 {
   for dy in 0..h
@@ -27,7 +77,7 @@ pub fn oliver_fill_rect(pixels: &mut [u32], pixel_width: usize, pixel_height: us
   }
 }
 
-pub fn oliver_fill_circle(pixels: &mut [u32], pixel_width: usize, pixel_height: usize,
+pub fn oliver_draw_fill_circle(pixels: &mut [u32], pixel_width: usize, pixel_height: usize,
                           x: i32, y: i32, radius: i32, color: u32)
 {
   let cx = x + radius;
